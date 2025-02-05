@@ -1,0 +1,8 @@
+<app-dropdown [label]="'select date type'" [options]="dateOptions" [control]="calendarTypeControl" />
+
+<div>{{calendarTypeControl.value}}</div>
+
+<h2>Selected Date: {{ currentDate() | date:'yyyy-MM-dd' }}</h2>
+
+<button (click)="previous()">← Previous</button>
+<button (click)="next()">Next →</button>

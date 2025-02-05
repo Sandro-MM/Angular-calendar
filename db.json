@@ -1,0 +1,13 @@
+{
+  "eventItems": [
+    {
+      "id": "1",
+      "date": "Tue Feb 06 2025 12:34:56 GMT+0000",
+      "title": "Meeting",
+      "description": "Meeting With Friends",
+      "color": "Red",
+      "repeat": "none",
+      "duration": "2"
+    }
+  ]
+}
