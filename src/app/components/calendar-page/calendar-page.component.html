@@ -1,6 +1,12 @@
-<app-dropdown [label]="'select date type'" [options]="dateOptions" [control]="calendarTypeControl" />
-
-<div>{{calendarTypeControl.value}}</div>
+<mat-form-field appearance="outline" class="full-width">
+  <mat-select [value]="calendarType()" (selectionChange)="navigateTo($event.value)">
+    @for (option of dateOptions; track option.value) {
+      <mat-option [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>
 
 <h2>Selected Date: {{ currentDate() | date:'yyyy-MM-dd' }}</h2>
 

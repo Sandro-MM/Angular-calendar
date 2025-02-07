@@ -8,6 +8,15 @@
       "color": "Red",
       "repeat": "none",
       "duration": "2"
+    },
+    {
+      "id": "2",
+      "date": "Tue Feb 06 2025 12:34:56 GMT+0000",
+      "title": "Cycling",
+      "description": "Cycling in park",
+      "color": "Green",
+      "repeat": "none",
+      "duration": "1"
     }
   ]
 }

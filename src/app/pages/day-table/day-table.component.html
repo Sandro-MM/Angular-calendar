@@ -1,2 +1,26 @@
 <app-calendar-page [selectedType]="'day'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
 
+
+<div>{{selectedDate}}</div>
+
+
+<div class="day-table" cdkDropList>
+  @for (hour of hoursObject | keyvalue; track hour.key) {
+    <div class="hourTable">
+      <span>{{ hour.value }}</span>
+      <div class="hour-slot"></div>
+    </div>
+  }
+
+  @for (event of store.eventItems(); track event.id) {
+    <div
+      class="event-box"
+      [ngStyle]="getEventStyles(event)"
+      cdkDrag
+      (cdkDragMoved)="onDragMove($event)"
+      (cdkDragEnded)="onDragEnd($event, event)"
+    >
+    <div>{{ event.title }}</div>
+    </div>
+  }
+</div>

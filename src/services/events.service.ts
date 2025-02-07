@@ -6,7 +6,7 @@ import {EventModel} from '../app/store/events.model';
   providedIn: 'root',
 })
 export class EventsService {
-  private apiUrl = 'http://localhost:3000/events';
+  private apiUrl = 'http://localhost:3000/eventItems';
 
   http = inject(HttpClient)
 
