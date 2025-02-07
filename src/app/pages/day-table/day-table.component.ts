@@ -1,91 +1,101 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {CalendarPageComponent} from '../../components/calendar-page/calendar-page.component';
-import {hours_object} from './hours_object';
-import {KeyValuePipe, NgStyle} from '@angular/common';
+import {hoursArray} from './hours_object';
+import {NgStyle} from '@angular/common';
 import {eventsStore} from '../../store/events.store';
-import {CdkDrag, CdkDragEnd, CdkDragMove} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragEnd, CdkDropList} from '@angular/cdk/drag-drop';
 import {EventModel} from '../../store/events.model';
 
 @Component({
   selector: 'app-day-table',
   imports: [
     CalendarPageComponent,
-    KeyValuePipe,
     CdkDrag,
-    NgStyle
+    NgStyle,
   ],
   templateUrl: './day-table.component.html',
   standalone: true,
   styleUrl: './day-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DayTableComponent implements OnInit{
+export class DayTableComponent implements OnInit, AfterViewInit {
+
+
   store = inject(eventsStore);
-
   selectedDate: string | undefined;
-  hoursObject = hours_object
-
+  hoursArray = hoursArray;
+  @ViewChild('dayTable') dayTable!: ElementRef;
+  tableHeight = 0;
+  tableOffsetTop = 0;
+  ngOnInit(): void {}
   onSelectedDateChange(date: string) {
     this.selectedDate = date;
     console.log('Selected Date:', this.selectedDate);
   }
 
-  ngOnInit(): void {
-
+  ngAfterViewInit(): void {
+    const tableElement = this.dayTable.nativeElement;
+    this.tableHeight = tableElement.clientHeight;
+    this.tableOffsetTop = tableElement.getBoundingClientRect().top;
   }
 
-  onDragStart(event: DragEvent, draggedEvent: EventModel) {
-    event.dataTransfer?.setData("eventId", draggedEvent.id);
-  }
+  constrainPosition = (point: { x: number; y: number }) => {
+    const hourHeight = 60;
+    const stepSize = 15;
+    const minY = this.tableOffsetTop;
+    const maxY = minY + this.tableHeight - hourHeight;
+    let snappedY = Math.round((point.y - minY) / stepSize) * stepSize + minY;
+    snappedY = Math.max(minY, Math.min(snappedY, maxY));
+    return { x: 0, y: snappedY };
+  };
 
   onDragEnd(event: CdkDragEnd, draggedEvent: EventModel) {
     const newY = event.source.getFreeDragPosition().y;
 
-    // 🕒 Convert to nearest hour slot (snapping)
-    const slotHeight = 60; // Each hour row is 60px
-    const newHour = Math.round(newY / slotHeight); // Snap to nearest hour
+    // Convert Y position to time
+    const time = this.getTimeFromPosition(newY);
+
+    console.log("New time:", time);
 
     // Update event time
     const newDate = new Date(draggedEvent.date);
-    newDate.setHours(newHour);
+    const [hours, minutes] = time.split(":").map(Number);
+    newDate.setHours(hours, minutes, 0, 0);
 
-    // Update store
-    this.store.updateEvent({ ...draggedEvent, date: newDate.toISOString() });
+    // Update store with new time
 
-    // Reset position to prevent unexpected movement
-    event.source.reset();
+
+  }
+  getTimeFromPosition(y: number): string {
+    const minY = this.tableOffsetTop; // Ensure correct start point
+    const hourHeight = 60; // Each hour row is 60px
+    const stepSize = 15; // Each 15px = 15 minutes
+
+    // Find how many 15-minute steps have passed
+    const totalMinutes = Math.round((y - minY) / stepSize) * 15;
+
+    // Convert total minutes to HH:MM format
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    // Format as "HH:MM"
+    return `${hours}:${minutes.toString().padStart(2, "0")}`;
   }
 
-  onDragMove(event: CdkDragMove<EventModel>) {
-    const eventBox = event.source.element.nativeElement;
-    const parentTable = document.querySelector('.day-table') as HTMLElement;
-
-    // Prevent moving out of top boundary
-    if (eventBox.offsetTop < 0) {
-      eventBox.style.top = '0px';
-    }
-
-    // Prevent moving out of bottom boundary
-    const maxBottom = parentTable.clientHeight - eventBox.clientHeight;
-    if (eventBox.offsetTop > maxBottom) {
-      eventBox.style.top = maxBottom + 'px';
-    }
-  }
 
   getEventStyles(event: EventModel) {
     const eventDate = new Date(event.date);
     const hours = eventDate.getHours();
     const minutes = eventDate.getMinutes();
 
-    // Calculate top position (each hour is 60px)
-    const top = hours * 60 + (minutes / 60) * 60;
 
-    // Calculate height based on duration (each hour is 60px)
+    const top = hours * 60 + (minutes / 60) * 60;
     const height = Number(event.duration) * 60;
 
     return {
       top: `${top}px`,
-      height: `${height}px`
+      height: `${height}px`,
     };
   }
 }
+

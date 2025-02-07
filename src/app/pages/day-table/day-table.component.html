@@ -3,9 +3,8 @@
 
 <div>{{selectedDate}}</div>
 
-
-<div class="day-table" cdkDropList>
-  @for (hour of hoursObject | keyvalue; track hour.key) {
+<div class="day-table" #dayTable>
+  @for (hour of hoursArray; track hour.id) {
     <div class="hourTable">
       <span>{{ hour.value }}</span>
       <div class="hour-slot"></div>
@@ -15,12 +14,15 @@
   @for (event of store.eventItems(); track event.id) {
     <div
       class="event-box"
+      cdkDragLockAxis="y"
       [ngStyle]="getEventStyles(event)"
+      [style.background-color]="event.color"
+      cdkDragBoundary=".day-table"
       cdkDrag
-      (cdkDragMoved)="onDragMove($event)"
+      [cdkDragConstrainPosition]="constrainPosition"
       (cdkDragEnded)="onDragEnd($event, event)"
-    >
-    <div>{{ event.title }}</div>
+      >
+      <div>{{ event.title }}</div>
     </div>
   }
 </div>
