@@ -27,7 +27,7 @@ export const eventsStore = signalStore(
 
       },
         updateEvent(updatedEvent: EventModel) {
-        console.log(updatedEvent)
+          console.log("Updating Event:", updatedEvent);
           patchState(store, {
             eventItems: store.eventItems().map(event =>
               event.id === updatedEvent.id ? updatedEvent : event

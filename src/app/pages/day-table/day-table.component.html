@@ -23,6 +23,10 @@
       (cdkDragEnded)="onDragEnd($event, event)"
       >
       <div>{{ event.title }}</div>
+      <div>{{event.description}}</div>
+      <div>{{event.duration}} hours</div>
+      <div class="time">{{ event.date | date: 'HH:mm' }}</div>
+
     </div>
   }
 </div>

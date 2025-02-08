@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {CalendarPageComponent} from '../../components/calendar-page/calendar-page.component';
 import {hoursArray} from './hours_object';
-import {NgStyle} from '@angular/common';
+import {DatePipe, NgStyle} from '@angular/common';
 import {eventsStore} from '../../store/events.store';
 import {CdkDrag, CdkDragEnd, CdkDropList} from '@angular/cdk/drag-drop';
 import {EventModel} from '../../store/events.model';
@@ -12,6 +12,7 @@ import {EventModel} from '../../store/events.model';
     CalendarPageComponent,
     CdkDrag,
     NgStyle,
+    DatePipe,
   ],
   templateUrl: './day-table.component.html',
   standalone: true,
@@ -50,36 +51,45 @@ export class DayTableComponent implements OnInit, AfterViewInit {
   };
 
   onDragEnd(event: CdkDragEnd, draggedEvent: EventModel) {
-    const newY = event.source.getFreeDragPosition().y;
+    const draggedElement = event.source.getRootElement();
+    const dayTable = this.dayTable.nativeElement as HTMLElement;
+
+    // Get final Y position inside `.day-table`
+    const draggedElementTop = draggedElement.getBoundingClientRect().top;
+    const dayTableTop = dayTable.getBoundingClientRect().top;
+    const finalY = draggedElementTop - dayTableTop;
 
     // Convert Y position to time
-    const time = this.getTimeFromPosition(newY);
+    const time = this.getTimeFromPosition(finalY);
+    console.log("Final Time:", time);
 
-    console.log("New time:", time);
+    // Create a new Date object from the existing event date
+    const updatedDate = new Date(draggedEvent.date);
 
-    // Update event time
-    const newDate = new Date(draggedEvent.date);
+    // Parse the new hours and minutes
     const [hours, minutes] = time.split(":").map(Number);
-    newDate.setHours(hours, minutes, 0, 0);
 
-    // Update store with new time
+    // Set the new time while keeping the same date
+    updatedDate.setHours(hours, minutes, 0, 0);
 
+    // Update the event object with the new date
+    const updatedEvent: EventModel = {
+      ...draggedEvent,
+      date: updatedDate.toString(), // Ensure date is properly updated
+    };
 
+    // Call the store update method
+    this.store.updateEvent(updatedEvent);
   }
   getTimeFromPosition(y: number): string {
-    const minY = this.tableOffsetTop; // Ensure correct start point
-    const hourHeight = 60; // Each hour row is 60px
     const stepSize = 15; // Each 15px = 15 minutes
+    const totalMinutes = Math.round(y / stepSize) * 15;
 
-    // Find how many 15-minute steps have passed
-    const totalMinutes = Math.round((y - minY) / stepSize) * 15;
+    // Convert total minutes to HH:MM
+    let hours = Math.floor(totalMinutes / 60) % 24; // Ensure it loops after 24 hours
+    let minutes = totalMinutes % 60;
 
-    // Convert total minutes to HH:MM format
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-
-    // Format as "HH:MM"
-    return `${hours}:${minutes.toString().padStart(2, "0")}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
   }
 
 

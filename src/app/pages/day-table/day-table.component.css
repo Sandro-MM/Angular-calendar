@@ -30,3 +30,9 @@
   border-radius: 4px;
   cursor: grab;
 }
+
+.time{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
