@@ -3,30 +3,32 @@
 
 <div>{{selectedDate}}</div>
 
-<div class="day-table" #dayTable>
-  @for (hour of hoursArray; track hour.id) {
-    <div class="hourTable">
-      <span>{{ hour.value }}</span>
-      <div class="hour-slot"></div>
-    </div>
-  }
+<div cdkDropListGroup class="day-table">
+  @for (hour of eventsByHour; track hour.id) {
 
-  @for (event of store.eventItems(); track event.id) {
-    <div
-      class="event-box"
-      cdkDragLockAxis="y"
-      [ngStyle]="getEventStyles(event)"
-      [style.background-color]="event.color"
-      cdkDragBoundary=".day-table"
-      cdkDrag
-      [cdkDragConstrainPosition]="constrainPosition"
-      (cdkDragEnded)="onDragEnd($event, event)"
-      >
-      <div>{{ event.title }}</div>
-      <div>{{event.description}}</div>
-      <div>{{event.duration}} hours</div>
-      <div class="time">{{ event.date | date: 'HH:mm' }}</div>
-
-    </div>
+    @if (hour.events) {
+      <div
+        class="hourTable"
+        cdkDropList
+        [id]="'hour-' + hour.id"
+        [cdkDropListData]="hour.events"
+        [cdkDropListConnectedTo]="connectedDropLists"
+        (cdkDropListDropped)="dropped($event)"
+      > <span>{{ hour.value }}</span>
+        @for (event of hour.events; track event.id) {
+          <div
+            class="event-box"
+            cdkDragBoundary='.day-table'
+            cdkDragLockAxis="y"
+            [style.width]="getEventWidth(hour.events.length)"
+            [style.height]="(event.duration+'px').toString()"
+            [style.background-color]="event.color"
+            cdkDrag
+          >
+            <div>{{ event.title }}</div>
+          </div>
+        }
+      </div>
+    }
   }
 </div>

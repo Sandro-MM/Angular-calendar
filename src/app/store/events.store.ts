@@ -33,6 +33,21 @@ export const eventsStore = signalStore(
               event.id === updatedEvent.id ? updatedEvent : event
             )
           });
+        },
+        updateEventTime(eventId: string, newHour: number) {
+          patchState(store, {
+            eventItems: store.eventItems().map((event: EventModel) => {
+              if (event.id === eventId) {
+                const eventDate = new Date(event.date);
+                const localYear = eventDate.getFullYear();
+                const localMonth = eventDate.getMonth();
+                const localDay = eventDate.getDate();
+                const updatedDate = new Date(localYear, localMonth, localDay, newHour, 0, 0, 0);
+                return { ...event, date: updatedDate.toISOString() };
+              }
+              return event;
+            })
+          });
         }
     }
     )
