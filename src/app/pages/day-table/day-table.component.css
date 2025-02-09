@@ -3,17 +3,20 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  overflow-y: clip;
 }
 
 .hourTable {
+
+  padding-left: 60px;
   border: 1px solid gray;
   box-sizing: border-box;
   width: 100%;
   height: 60px;
   display: flex;
-  align-items: center;
   position: relative;
-  justify-content: flex-start; /* Align items to the left in the hourTable */
+  justify-content: center;
+  align-items: start;
 }
 
 .hourTable span {
@@ -22,19 +25,18 @@
 
 .event-box {
   z-index: 10;
-  /*position: absolute;*/
+
   top: 0;
   color: white;
   padding: 5px;
   box-sizing: border-box;
   border-radius: 4px;
   cursor: grab;
-  display: inline-flex; /* Allows the events to be displayed in a row */
   margin-right: 5px; /* Adds some space between events */
 }
 
 .time {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 5px;
 }

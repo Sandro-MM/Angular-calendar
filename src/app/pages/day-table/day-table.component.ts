@@ -1,4 +1,13 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {CalendarPageComponent} from '../../components/calendar-page/calendar-page.component';
 import {hoursArray} from './hours_object';
 import {DatePipe, NgStyle} from '@angular/common';
@@ -39,32 +48,17 @@ export class DayTableComponent implements OnInit {
     console.log('Selected Date:', this.selectedDate);
   }
 
-  get eventsByHour() {
-    return hoursArray.map(hour => ({
+  eventsByHour = computed(() =>
+    this.hoursArray.map(hour => ({
       ...hour,
       events: this.store.eventItems().filter(event => {
         const eventHour = new Date(event.date).getHours();
         return eventHour === hour.id;
       }),
-    }));
-  }
+    }))
+  );
 
-  get connectedDropLists() {
-    return this.eventsByHour.map(hour => `hour-${hour.id}`);
-  }
 
-  getEventStyles(event: EventModel) {
-    const eventDate = new Date(event.date);
-    const hours = eventDate.getHours();
-    const minutes = eventDate.getMinutes();
-    const top = hours * 60 + (minutes / 60) * 60;
-    const height = Number(event.duration) * 60;
-
-    return {
-      top: `${top}px`,
-      height: `${height}px`,
-    };
-  }
 
   dropped(event: CdkDragDrop<any[]>) {
     if (event.previousContainer !== event.container) {
@@ -85,6 +79,15 @@ export class DayTableComponent implements OnInit {
 
   getEventWidth(eventCount: number): string {
     return eventCount > 0 ? `calc(100% / ${eventCount})` : '100%';
+  }
+
+  protected readonly Date = Date;
+
+  isEventOnSelectedDate(eventDate: string): boolean {
+    if (!this.selectedDate) return false;
+    const selected = new Date(this.selectedDate).toDateString();
+    const event = new Date(eventDate).toDateString();
+    return selected === event;
   }
 }
 

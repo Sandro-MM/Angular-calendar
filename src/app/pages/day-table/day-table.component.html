@@ -4,7 +4,7 @@
 <div>{{selectedDate}}</div>
 
 <div cdkDropListGroup class="day-table">
-  @for (hour of eventsByHour; track hour.id) {
+  @for (hour of eventsByHour(); track hour.id; let i = $index) {
 
     @if (hour.events) {
       <div
@@ -12,21 +12,24 @@
         cdkDropList
         [id]="'hour-' + hour.id"
         [cdkDropListData]="hour.events"
-        [cdkDropListConnectedTo]="connectedDropLists"
         (cdkDropListDropped)="dropped($event)"
-      > <span>{{ hour.value }}</span>
+      > <span class="time" >{{ hour.value }}</span>
         @for (event of hour.events; track event.id) {
+          @if (isEventOnSelectedDate(event.date)) {
           <div
             class="event-box"
             cdkDragBoundary='.day-table'
             cdkDragLockAxis="y"
             [style.width]="getEventWidth(hour.events.length)"
-            [style.height]="(event.duration+'px').toString()"
+            [style.height]="(event.duration + 'px').toString()"
             [style.background-color]="event.color"
-            cdkDrag
-          >
-            <div>{{ event.title }}</div>
+            [style.margin-left.px]="+event.duration / 3"
+            cdkDrag>
+          <div>{{ event.title }}</div>
+          <div>{{ event.description }}</div>
+          <div>{{ event.date | date: 'HH:mm' }} - duration: {{ event.duration }} mins</div>
           </div>
+        }
         }
       </div>
     }

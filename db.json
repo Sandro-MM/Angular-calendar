@@ -11,12 +11,21 @@
     },
     {
       "id": "2",
-      "date": "Tue Feb 06 2025 12:34:56 GMT+0400",
+      "date": "Tue Feb 06 2025 00:34:56 GMT+0400",
       "title": "Cycling",
       "description": "Cycling in park",
       "color": "Green",
       "repeat": "none",
       "duration": "120"
+    },
+    {
+      "id": "3",
+      "date": "Tue Feb 09 2025 21:34:56 GMT+0400",
+      "title": "Cycling",
+      "description": "Cycling in park",
+      "color": "Blue",
+      "repeat": "none",
+      "duration": "350"
     }
   ]
 }
