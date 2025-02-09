@@ -1,11 +1,7 @@
 <app-calendar-page [selectedType]="'day'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
-
-
 <div>{{selectedDate}}</div>
-
 <div cdkDropListGroup class="day-table">
   @for (hour of eventsByHour(); track hour.id; let i = $index) {
-
     @if (hour.events) {
       <div
         class="hourTable"

@@ -1,12 +1,9 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
   inject,
   OnInit,
-  ViewChild
 } from '@angular/core';
 import {CalendarPageComponent} from '../../components/calendar-page/calendar-page.component';
 import {hoursArray} from './hours_object';
@@ -15,12 +12,10 @@ import {eventsStore} from '../../store/events.store';
 import {
   CdkDrag,
   CdkDragDrop,
-  CdkDragEnd,
   CdkDropList,
   CdkDropListGroup,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
-import {EventModel} from '../../store/events.model';
 
 @Component({
   selector: 'app-day-table',
@@ -58,8 +53,6 @@ export class DayTableComponent implements OnInit {
     }))
   );
 
-
-
   dropped(event: CdkDragDrop<any[]>) {
     if (event.previousContainer !== event.container) {
       transferArrayItem(
@@ -68,21 +61,15 @@ export class DayTableComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-
       const movedEvent = event.container.data[event.currentIndex];
-      const newHour = Number(event.container.id.split('-')[1]); // Extract hour from ID
-
+      const newHour = Number(event.container.id.split('-')[1]);
       this.store.updateEventTime(movedEvent.id, newHour);
     }
     console.log(event);
   }
-
   getEventWidth(eventCount: number): string {
     return eventCount > 0 ? `calc(100% / ${eventCount})` : '100%';
   }
-
-  protected readonly Date = Date;
-
   isEventOnSelectedDate(eventDate: string): boolean {
     if (!this.selectedDate) return false;
     const selected = new Date(this.selectedDate).toDateString();
