@@ -1,38 +1,32 @@
 <app-calendar-page [selectedType]="'week'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
-
-<table border="1">
-  <thead>
-  <tr>
-    <th>Time</th>
+  <div>
+  <div class="table-header">
+    <h5>Time</h5>
     @for (day of weekDays(); track day) {
-      <th>{{ formatDate(day) }}</th>
+      <div>{{ formatDate(day) }}</div>
     }
-  </tr>
-  </thead>
-  <tbody cdkDropListGroup>
+  </div>
+  </div>
+  <div class="table-box" cdkDropListGroup>
     @for (hour of eventsByDayAndHour(); track hour.id) {
-      <tr style="z-index: 1">
-        <td>{{ hour.value }}</td>
+        <div>{{ hour.value }}</div>
         @for (dayEvents of hour.eventsByDay; track dayEvents.date) {
-          <td>
-            <div cdkDropList
-                 (cdkDropListDropped)="dropped($event)"
+            <div class="event-cell" cdkDropList
+                 (cdkDropListDropped)="dropped($event, dayEvents.date.toString(), hour.value)"
                  [cdkDropListData]="dayEvents.events"
-                 style="height: 48px; display: block">
-            @for (event of dayEvents?.events; track event.id) {
+                 >
+            @for (event of dayEvents?.events; track event.id; let i = $count;) {
               <div
                 cdkDrag
                 class="event-box"
                 [style.height]="((+event.duration * 0.8) + 'px').toString()"
                 [style.background-color]="event.color"
+                [style.width]="getEventWidth(i)"
               >{{ event.title }}
                 <div>{{ event.date | date: 'dd/MM-HH:mm' }}</div>
               </div>
             }
             </div>
-          </td>
         }
-      </tr>
     }
-  </tbody>
-</table>
+  </div>

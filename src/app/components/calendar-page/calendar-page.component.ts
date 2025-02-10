@@ -1,6 +1,4 @@
-
 import {ActivatedRoute, Router} from '@angular/router';
-
 import {ChangeDetectionStrategy, Component, computed, inject, input, OnInit, output, signal} from '@angular/core';
 import { addDays, addWeeks, addMonths, addYears, format } from 'date-fns';
 import {DatePipe} from '@angular/common';
@@ -128,7 +126,7 @@ export class CalendarPageComponent implements OnInit {
   }
 
   navigateTo(value: string) {
-    this.calendarType.set(value); // Update the calendar type
+    this.calendarType.set(value);
     this.router.navigate([value], {
       queryParams: { date: format(this.currentDate(), 'yyyy-MM-dd') },
       queryParamsHandling: 'merge',

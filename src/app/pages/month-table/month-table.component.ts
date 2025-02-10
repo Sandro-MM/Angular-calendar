@@ -1,20 +1,72 @@
-import { Component } from '@angular/core';
+import {Component, computed, inject, signal, WritableSignal} from '@angular/core';
 import {CalendarPageComponent} from "../../components/calendar-page/calendar-page.component";
+import {NgClass} from '@angular/common';
+import {eventsStore} from '../../store/events.store';
 
 @Component({
   selector: 'app-month-table',
-    imports: [
-        CalendarPageComponent
-    ],
+  imports: [
+    CalendarPageComponent,
+    NgClass
+  ],
   templateUrl: './month-table.component.html',
   standalone: true,
   styleUrl: './month-table.component.css'
 })
 export class MonthTableComponent {
-  selectedDate: string | undefined;
-
+  store = inject(eventsStore);
+  selectedDate: WritableSignal<string> = signal('');
   onSelectedDateChange(date: string) {
-    this.selectedDate = date;
-    console.log('Selected Date:', this.selectedDate);
+    this.selectedDate.set(date)
+  }
+  monthDays = computed(() => {
+    const date = this.parseDate(this.selectedDate());
+    return this.generateMonthGrid(date);
+  });
+
+  private parseDate(dateString: string): Date {
+    return dateString ? new Date(dateString) : new Date();
+  }
+
+  private generateMonthGrid(selectedDate: Date) {
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const firstWeekday = firstDay.getDay();
+    let calendar: { date: Date | null; isCurrentMonth: boolean }[][] = [];
+    let week: { date: Date | null; isCurrentMonth: boolean }[] = [];
+    const prevMonth = month === 0 ? 11 : month - 1;
+    const prevMonthYear = month === 0 ? year - 1 : year;
+    const prevMonthLastDay = new Date(prevMonthYear, prevMonth + 1, 0);
+    const prevMonthDaysCount = prevMonthLastDay.getDate();
+    for (let i = 0; i < firstWeekday; i++) {
+      week.push({
+        date: new Date(prevMonthYear, prevMonth, prevMonthDaysCount - (firstWeekday - 1 - i)),
+        isCurrentMonth: false
+      });
+    }
+    for (let day = 1; day <= daysInMonth; day++) {
+      week.push({ date: new Date(year, month, day), isCurrentMonth: true });
+      if (week.length === 7) {
+        calendar.push(week);
+        week = [];
+      }
+    }
+    const nextMonth = month === 11 ? 0 : month + 1;
+    const nextMonthYear = month === 11 ? year + 1 : year;
+    let nextMonthDay = 1;
+    while (week.length < 7) {
+      week.push({
+        date: new Date(nextMonthYear, nextMonth, nextMonthDay++),
+        isCurrentMonth: false
+      });
+    }
+    if (week.some(day => day.date !== null)) {
+      calendar.push(week);
+    }
+    console.log(calendar)
+    return calendar;
   }
 }

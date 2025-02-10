@@ -1,2 +1,28 @@
-<app-calendar-page [selectedType]="'month'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
+<app-calendar-page [selectedType]="'mondiv'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
+<div>{{selectedDate()}}</div>
+<div>
 
+  <div class="table-header">
+    <div>Sun</div>
+    <div>Mon</div>
+    <div>Tue</div>
+    <div>Wed</div>
+    <div>Thu</div>
+    <div>Fri</div>
+    <div>Sat</div>
+  </div>
+
+  <div class="table-body">
+    @for (week of monthDays(); let i = $index; track i) {
+      <div class="table-row">
+        @for (day of week; let i = $index; track i+'day') {
+          <div class="item" [ngClass]="{ 'current-month': day.isCurrentMonth }">
+            @if (day.date) {
+              <span>{{ day.date.getDate() }}</span>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

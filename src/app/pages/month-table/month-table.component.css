@@ -1,0 +1,35 @@
+.table-header{
+  display: flex;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+
+  div{
+    height: 25px;
+    width: 197px;
+    border: 1px solid gray;
+  }
+}
+
+.table-body{
+
+
+
+}
+
+.table-row{
+  display: flex;
+
+}
+
+
+
+.item{
+  background: #b9b9b9;
+  border: 1px solid gray;
+  width: 197px;
+  height: 197px;
+}
+.current-month{
+  background: white;
+}
