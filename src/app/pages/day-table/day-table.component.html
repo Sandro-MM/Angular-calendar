@@ -1,5 +1,5 @@
 <app-calendar-page [selectedType]="'day'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
-<div>{{selectedDate}}</div>
+<div>{{selectedDate()}}</div>
 <div cdkDropListGroup class="day-table">
   @for (hour of eventsByHour(); track hour.id; let i = $index) {
     @if (hour.events) {
@@ -11,7 +11,7 @@
         (cdkDropListDropped)="dropped($event)"
       > <span class="time" >{{ hour.value }}</span>
         @for (event of hour.events; track event.id) {
-          @if (isEventOnSelectedDate(event.date)) {
+
           <div
             class="event-box"
             cdkDragBoundary='.day-table'
@@ -19,13 +19,12 @@
             [style.width]="getEventWidth(hour.events.length)"
             [style.height]="(event.duration + 'px').toString()"
             [style.background-color]="event.color"
-            [style.margin-left.px]="+event.duration / 3"
+            [style.margin-left.px]="(+event.duration) / 2.5"
             cdkDrag>
           <div>{{ event.title }}</div>
           <div>{{ event.description }}</div>
           <div>{{ event.date | date: 'HH:mm' }} - duration: {{ event.duration }} mins</div>
           </div>
-        }
         }
       </div>
     }

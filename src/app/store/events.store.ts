@@ -34,22 +34,39 @@ export const eventsStore = signalStore(
             )
           });
         },
-        updateEventTime(eventId: string, newHour: number) {
+        updateEventTime(eventId: string, time: any) {
           patchState(store, {
             eventItems: store.eventItems().map((event: EventModel) => {
               if (event.id === eventId) {
-                const eventDate = new Date(event.date);
-                const localYear = eventDate.getFullYear();
-                const localMonth = eventDate.getMonth();
-                const localDay = eventDate.getDate();
-                const updatedDate = new Date(localYear, localMonth, localDay, newHour, 0, 0, 0);
-                return { ...event, date: updatedDate.toISOString() };
+                return { ...event, date: time };
+              }
+              return event;
+            })
+          });
+        },
+        updateEventDate(eventId: string, newDate: Date, newHour: number) {
+          patchState(store, {
+            eventItems: store.eventItems().map((event: EventModel) => {
+              if (event.id === eventId) {
+                return {
+                  ...event,
+                  date: new Date(
+                    newDate.getFullYear(),
+                    newDate.getMonth(),
+                    newDate.getDate(),
+                    newHour,
+                    0,
+                    0,
+                    0
+                  ).toISOString()
+                };
               }
               return event;
             })
           });
         }
-    }
+
+      }
     )
   ),
   withHooks({
