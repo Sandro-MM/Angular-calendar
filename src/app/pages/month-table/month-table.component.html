@@ -1,5 +1,5 @@
-<app-calendar-page [selectedType]="'mondiv'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
-<div>{{selectedDate()}}</div>
+<app-calendar-page (selectedDate)="onSelectedDateChange($event)" [selectedType]="'mondiv'"></app-calendar-page>
+<div>{{ selectedDate() }}</div>
 <div>
 
   <div class="table-header">
@@ -12,22 +12,30 @@
     <div>Sat</div>
   </div>
 
-  <div class="table-body">
+  <div cdkDropListGroup class="table-body">
     @for (week of monthDays(); let i = $index; track i) {
       <div class="table-row">
-        @for (day of week; let i = $index; track i+'day') {
-          <div class="item" [ngClass]="{ 'current-month': day.isCurrentMonth }">
-            @if (day.date) {
+        @for (day of week; let i = $index; track i + 'day') {
+          @if (day.date) {
+            <div cdkDropList
+                 (cdkDropListDropped)="dropped($event, day.date.toString())"
+                 [cdkDropListData]="day.events"
+                 class="item"
+                 [ngClass]="{ 'current-month': day.isCurrentMonth }">
+
               <span>{{ day.date.getDate() }}</span>
-            }
-            @for (event of day.events; let i = $index; track i+'event') {
-              <div  [style.background-color]="event.color">
-                <div>{{ event.title }}</div>
-                <div>{{ event.description }}</div>
-                <div>{{ event.date | date: 'HH:mm' }} - duration: {{ event.duration }} mins</div>
-              </div>
-            }
-          </div>
+
+              @for (event of day.events; let i = $index; track i + 'event') {
+                <div
+                  cdkDrag
+                  class="event-box"
+                  [style.background-color]="event.color">
+                  <div>{{ event.title }}</div>
+                  <div>{{ event.date | date: 'dd/MM-HH:mm' }} - {{ event.duration }} mins</div>
+                </div>
+              }
+            </div>
+          }
         }
       </div>
     }

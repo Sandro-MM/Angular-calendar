@@ -10,7 +10,7 @@
         [cdkDropListData]="hour.events"
         (cdkDropListDropped)="dropped($event)"
       > <span class="time" >{{ hour.value }}</span>
-        @for (event of hour.events; track event.id) {
+        @for (event of hour.events; track event.id; let i = $count;) {
           <div
             class="event-box"
             cdkDragBoundary='.day-table'
@@ -18,7 +18,7 @@
             [style.width]="getEventWidth(hour.events.length)"
             [style.height]="(event.duration + 'px').toString()"
             [style.background-color]="event.color"
-            [style.margin-left.px]="(+event.duration) / 2.5"
+            [style.margin-left.px]="$count ===1?(+event.duration) / 2.5:0"
             cdkDrag>
           <div>{{ event.title }}</div>
           <div>{{ event.description }}</div>

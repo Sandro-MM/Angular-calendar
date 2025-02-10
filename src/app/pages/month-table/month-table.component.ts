@@ -2,13 +2,17 @@ import {Component, computed, inject, signal, WritableSignal} from '@angular/core
 import {CalendarPageComponent} from "../../components/calendar-page/calendar-page.component";
 import {DatePipe, NgClass} from '@angular/common';
 import {eventsStore} from '../../store/events.store';
+import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-month-table',
   imports: [
     CalendarPageComponent,
     NgClass,
-    DatePipe
+    DatePipe,
+    CdkDrag,
+    CdkDropList,
+    CdkDropListGroup
   ],
   templateUrl: './month-table.component.html',
   standalone: true,
@@ -79,4 +83,24 @@ export class MonthTableComponent {
     console.log(calendar)
     return calendar;
   }
+
+  dropped(event: CdkDragDrop<any[]>, day: string) {
+    if (event.previousContainer !== event.container) {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+      const movedEvent = event.container.data[event.currentIndex];
+      const originalDate = new Date(movedEvent.date);
+      const hour = originalDate.getHours();
+      const minute = originalDate.getMinutes();
+      const updatedDate = new Date(day);
+      updatedDate.setHours(hour);
+      updatedDate.setMinutes(minute);
+      this.store.updateEventTime(movedEvent.id, updatedDate.toISOString());
+    }
+  }
+
 }
