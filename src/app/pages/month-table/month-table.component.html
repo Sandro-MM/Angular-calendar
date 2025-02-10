@@ -20,6 +20,13 @@
             @if (day.date) {
               <span>{{ day.date.getDate() }}</span>
             }
+            @for (event of day.events; let i = $index; track i+'event') {
+              <div  [style.background-color]="event.color">
+                <div>{{ event.title }}</div>
+                <div>{{ event.description }}</div>
+                <div>{{ event.date | date: 'HH:mm' }} - duration: {{ event.duration }} mins</div>
+              </div>
+            }
           </div>
         }
       </div>
