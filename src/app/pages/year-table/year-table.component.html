@@ -1,2 +1,42 @@
-<app-calendar-page [selectedType]="'year'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
+<app-calendar-page [selectedType]="'week'" (selectedDate)="onSelectedDateChange($event)"></app-calendar-page>
 
+<div class="year-calendar">
+  @for (month of monthsArray; track month) {
+    <div class="month">
+      <h3>{{ monthNames()[month] }}</h3>
+      <table border="1">
+        <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (week of getMonthDaysWithEvents(month); track week) {
+            <tr>
+              @for (dayObj of week; track dayObj.day) {
+                <td class="{{ dayObj.day === 0 ? 'empty' : '' }}">
+                  <div>
+                    {{ dayObj.day === 0 ? '' : dayObj.day }}
+                  </div>
+                  <div class="events">
+                    @for (event of dayObj.events; track event.id) {
+                      <div class="event-box" [style.backgroundColor]="event.color">
+                        {{ event.title }}
+                      </div>
+                    }
+                  </div>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
