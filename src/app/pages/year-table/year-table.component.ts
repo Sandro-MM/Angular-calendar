@@ -1,6 +1,7 @@
-import {Component, computed, inject, Signal, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, Signal, signal, WritableSignal} from '@angular/core';
 import {CalendarPageComponent} from '../../components/calendar-page/calendar-page.component';
 import {eventsStore} from '../../store/events.store';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-year-table',
@@ -9,15 +10,14 @@ import {eventsStore} from '../../store/events.store';
   ],
   templateUrl: './year-table.component.html',
   standalone: true,
-  styleUrl: './year-table.component.css'
+  styleUrl: './year-table.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class YearTableComponent {
-  store = inject(eventsStore); // Inject event store
-
+  store = inject(eventsStore);
+  router = inject(Router);
   selectedDate: WritableSignal<string> = signal(new Date().toISOString());
-
   selectedYear: Signal<number> = computed(() => new Date(this.selectedDate()).getFullYear());
-
   monthsArray = Array.from({ length: 12 }, (_, i) => i);
 
   monthNames = computed(() =>
@@ -32,39 +32,39 @@ export class YearTableComponent {
 
   getMonthDaysWithEvents = (month: number): { day: number; events: any[] }[][] => {
     const year = this.selectedYear();
-    const firstDay = new Date(year, month, 1).getDay(); // Get first day index (0 = Sun, ..., 6 = Sat)
-    const totalDays = new Date(year, month + 1, 0).getDate(); // Get total days in the month
+    const firstDay = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
     const weeks: { day: number; events: any[] }[][] = [[]];
-
-    // Get events
     const allEvents = this.store.eventItems();
 
-    // Fill the first week with empty slots if the month doesn't start on Sunday
     for (let i = 0; i < firstDay; i++) {
-      weeks[0].push({ day: 0, events: [] }); // Empty slot
+      weeks[0].push({ day: 0, events: [] });
     }
-
     let currentWeek = 0;
     for (let day = 1; day <= totalDays; day++) {
       if (weeks[currentWeek].length === 7) {
-        weeks.push([]); // Start a new week
+        weeks.push([]);
         currentWeek++;
       }
-
-      // Get events for this specific day
       const currentDay = new Date(year, month, day);
       const eventsForDay = allEvents.filter(
         (event) => new Date(event.date).toDateString() === currentDay.toDateString()
       );
-
       weeks[currentWeek].push({ day, events: eventsForDay });
     }
-
-    // Fill the last week's empty slots
     while (weeks[currentWeek].length < 7) {
       weeks[currentWeek].push({ day: 0, events: [] });
     }
-
     return weeks;
   };
+
+
+
+  navigateToMonth(month: number, selectedDate: string) {
+    const [year, , day] = selectedDate.split('-');
+    const formattedMonth = String(+month+1).padStart(2, '0');
+    const formattedDate = `${year}-${formattedMonth}-${day}`;
+    this.router.navigate(['/month'], { queryParams: { date: formattedDate } });
+  }
+
 }

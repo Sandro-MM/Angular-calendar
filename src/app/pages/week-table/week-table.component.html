@@ -3,7 +3,7 @@
   <div class="table-header">
     <h5>Time</h5>
     @for (day of weekDays(); track day) {
-      <div>{{ formatDate(day) }}</div>
+      <div (click)="navigateToDay(day.toDateString())">{{ formatDate(day) }}</div>
     }
   </div>
   </div>

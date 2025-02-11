@@ -17,7 +17,10 @@
       <div class="table-row">
         @for (day of week; let i = $index; track i + 'day') {
           @if (day.date) {
-            <div cdkDropList
+            <div
+              (click)="navigateToDay(day.date.toString())"
+
+              cdkDropList
                  (cdkDropListDropped)="dropped($event, day.date.toString())"
                  [cdkDropListData]="day.events"
                  class="item"

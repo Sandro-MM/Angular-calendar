@@ -21,7 +21,9 @@ export const eventsStore = signalStore(
         });
       },
       addEvent(event: EventModel){
-
+        patchState(store, {
+          eventItems: [event],
+        });
       },
       deleteEvent(id: string){
 
@@ -44,28 +46,6 @@ export const eventsStore = signalStore(
             })
           });
         },
-        updateEventDate(eventId: string, newDate: Date, newHour: number) {
-          patchState(store, {
-            eventItems: store.eventItems().map((event: EventModel) => {
-              if (event.id === eventId) {
-                return {
-                  ...event,
-                  date: new Date(
-                    newDate.getFullYear(),
-                    newDate.getMonth(),
-                    newDate.getDate(),
-                    newHour,
-                    0,
-                    0,
-                    0
-                  ).toISOString()
-                };
-              }
-              return event;
-            })
-          });
-        }
-
       }
     )
   ),

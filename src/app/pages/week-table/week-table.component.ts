@@ -1,9 +1,10 @@
-import {Component, computed, inject, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, signal, WritableSignal} from '@angular/core';
 import {CalendarPageComponent} from '../../components/calendar-page/calendar-page.component';
 import {hoursArray} from '../day-table/hours_object';
 import {eventsStore} from '../../store/events.store';
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, transferArrayItem} from '@angular/cdk/drag-drop';
 import {DatePipe} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-week-table',
@@ -16,11 +17,13 @@ import {DatePipe} from '@angular/common';
   ],
   templateUrl: './week-table.component.html',
   standalone: true,
-  styleUrl: './week-table.component.css'
+  styleUrl: './week-table.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeekTableComponent {
   hoursArray = hoursArray;
   store = inject(eventsStore);
+  router = inject(Router);
   selectedDate: WritableSignal<string> = signal('');
   weekDays = computed(() => {
     const date = new Date(this.selectedDate());
@@ -77,5 +80,14 @@ export class WeekTableComponent {
   }
   getEventWidth(eventCount: number): string {
     return eventCount > 0 ? `calc(100% / ${eventCount})` : '100%';
+  }
+  navigateToDay(day: string) {
+    const date = new Date(day);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const dayOfMonth = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${dayOfMonth}`;
+    console.log(formattedDate);
+    this.router.navigate(['/day'], { queryParams: { date: formattedDate } });
   }
 }

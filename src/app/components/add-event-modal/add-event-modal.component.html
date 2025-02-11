@@ -1,0 +1,42 @@
+
+  <form class="container" [formGroup]="eventForm" (ngSubmit)="submitForm(eventForm.value)">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="datepicker" formControlName="date">
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker"/>
+      <mat-datepicker #datepicker/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Time</mat-label>
+      <input matInput [matTimepicker]="picker" formControlName="date">
+      <mat-timepicker-toggle matIconSuffix [for]="picker"/>
+      <mat-timepicker #picker/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+
+      <mat-label>Color</mat-label>
+      <input type="color" formControlName="color">
+    <mat-label>Duration</mat-label>
+    <mat-slider
+      showTickMarks
+      discrete
+      min="15"
+      max="240"
+      step="15"
+    >       <input formControlName="duration" matSliderThumb>
+    </mat-slider>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
+

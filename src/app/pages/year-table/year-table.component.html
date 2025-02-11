@@ -3,7 +3,7 @@
 <div class="year-calendar">
   @for (month of monthsArray; track month) {
     <div class="month">
-      <h3>{{ monthNames()[month] }}</h3>
+      <h3 (click)="navigateToMonth(month, selectedDate())">{{ monthNames()[month] }}</h3>
       <table border="1">
         <thead>
         <tr>
@@ -17,15 +17,15 @@
         </tr>
         </thead>
         <tbody>
-          @for (week of getMonthDaysWithEvents(month); track week) {
+          @for (week of getMonthDaysWithEvents(month);let i =$index; track i) {
             <tr>
-              @for (dayObj of week; track dayObj.day) {
+              @for (dayObj of week;let i =$index; track i) {
                 <td class="{{ dayObj.day === 0 ? 'empty' : '' }}">
                   <div>
                     {{ dayObj.day === 0 ? '' : dayObj.day }}
                   </div>
                   <div class="events">
-                    @for (event of dayObj.events; track event.id) {
+                    @for (event of dayObj.events; track event.id+'event') {
                       <div class="event-box" [style.backgroundColor]="event.color">
                         {{ event.title }}
                       </div>

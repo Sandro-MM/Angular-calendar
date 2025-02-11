@@ -5,6 +5,9 @@ import {DatePipe} from '@angular/common';
 import {MatFormField} from '@angular/material/form-field';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
+import {MatButton} from '@angular/material/button';
+import {MatDialog} from '@angular/material/dialog';
+import {AddEventModalComponent} from '../add-event-modal/add-event-modal.component';
 
 @Component({
   selector: 'app-calendar-page',
@@ -12,7 +15,8 @@ import {MatSelect} from '@angular/material/select';
     DatePipe,
     MatFormField,
     MatOption,
-    MatSelect
+    MatSelect,
+    MatButton,
   ],
   templateUrl: './calendar-page.component.html',
   standalone: true,
@@ -23,6 +27,7 @@ import {MatSelect} from '@angular/material/select';
 export class CalendarPageComponent implements OnInit {
   router = inject(Router);
   route = inject(ActivatedRoute);
+  dialog = inject(MatDialog);
 
   dateOptions = [
     { value: 'day', label: 'Day' },
@@ -133,5 +138,14 @@ export class CalendarPageComponent implements OnInit {
     });
   }
 
+  openDialog() {
+    let dialogRef = this.dialog.open(AddEventModalComponent, {
+      height: '800px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log( result,'The dialog was closed');
+    });
+  }
 }
 

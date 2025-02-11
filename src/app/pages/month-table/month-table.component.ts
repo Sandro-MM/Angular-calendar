@@ -1,8 +1,9 @@
-import {Component, computed, inject, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, signal, WritableSignal} from '@angular/core';
 import {CalendarPageComponent} from "../../components/calendar-page/calendar-page.component";
 import {DatePipe, NgClass} from '@angular/common';
 import {eventsStore} from '../../store/events.store';
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, transferArrayItem} from '@angular/cdk/drag-drop';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-month-table',
@@ -16,10 +17,12 @@ import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, transferArrayItem} 
   ],
   templateUrl: './month-table.component.html',
   standalone: true,
-  styleUrl: './month-table.component.css'
+  styleUrl: './month-table.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MonthTableComponent {
   store = inject(eventsStore);
+  router = inject(Router)
   selectedDate: WritableSignal<string> = signal('');
   onSelectedDateChange(date: string) {
     this.selectedDate.set(date)
@@ -101,6 +104,16 @@ export class MonthTableComponent {
       updatedDate.setMinutes(minute);
       this.store.updateEventTime(movedEvent.id, updatedDate.toISOString());
     }
+  }
+
+  navigateToDay(day: string) {
+    const date = new Date(day);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const dayOfMonth = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${dayOfMonth}`;
+    console.log(formattedDate);
+    this.router.navigate(['/day'], { queryParams: { date: formattedDate } });
   }
 
 }

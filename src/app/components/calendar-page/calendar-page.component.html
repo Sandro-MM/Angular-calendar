@@ -7,6 +7,9 @@
     }
   </mat-select>
 </mat-form-field>
+
+<button (click)="openDialog()" mat-raised-button color="primary">Add event</button>
+
 <h2>Selected Date: {{ currentDate() | date:'yyyy-MM-dd' }}</h2>
-<button (click)="previous()">← Previous</button>
-<button (click)="next()">Next →</button>
+<button mat-raised-button color="primary" (click)="previous()">← Previous</button>
+<button mat-raised-button color="primary" (click)="next()">Next →</button>
