@@ -20,13 +20,29 @@ export const eventsStore = signalStore(
             patchState(store,{eventItems:res})
         });
       },
-      addEvent(event: EventModel){
-        patchState(store, {
-          eventItems: [event],
-        });
-      },
+        addEvent(event: EventModel) {
+         eventService.addEvent(event).subscribe({
+            next: (addedEvent) => {
+              patchState(store, {
+                eventItems: [...store.eventItems(),addedEvent],
+              });
+            },
+            error: (err) => {
+              console.error('Error adding event:', err);
+            },
+          });
+        },
       deleteEvent(id: string){
-
+        eventService.deleteEvent(id).subscribe({
+          next: (deletedEventId) => {
+            patchState(store, {
+              eventItems: [...store.eventItems().filter(event => event.id !== deletedEventId)],
+            });
+          },
+          error: (err) => {
+            console.error('Error adding event:', err);
+          },
+        });
       },
         updateEvent(updatedEvent: EventModel) {
           console.log("Updating Event:", updatedEvent);
