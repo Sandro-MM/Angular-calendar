@@ -5,6 +5,8 @@ import {eventsStore} from '../../store/events.store';
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, transferArrayItem} from '@angular/cdk/drag-drop';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
+import {EventDetailedComponent} from '../../components/event-detailed/event-detailed.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-week-table',
@@ -23,6 +25,7 @@ import {Router} from '@angular/router';
 export class WeekTableComponent {
   hoursArray = hoursArray;
   store = inject(eventsStore);
+  dialog = inject(MatDialog);
   router = inject(Router);
   selectedDate: WritableSignal<string> = signal('');
   weekDays = computed(() => {
@@ -89,5 +92,14 @@ export class WeekTableComponent {
     const formattedDate = `${year}-${month}-${dayOfMonth}`;
     console.log(formattedDate);
     this.router.navigate(['/day'], { queryParams: { date: formattedDate } });
+  }
+  openEventDetailedModal(event: any) {
+    const dialogRef =
+      this.dialog.open(EventDetailedComponent,
+        {
+          data: event,
+        }
+      );
+
   }
 }

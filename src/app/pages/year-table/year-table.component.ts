@@ -2,6 +2,8 @@ import {ChangeDetectionStrategy, Component, computed, inject, Signal, signal, Wr
 import {CalendarPageComponent} from '../../components/calendar-page/calendar-page.component';
 import {eventsStore} from '../../store/events.store';
 import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {EventDetailedComponent} from '../../components/event-detailed/event-detailed.component';
 
 @Component({
   selector: 'app-year-table',
@@ -16,6 +18,8 @@ import {Router} from '@angular/router';
 export class YearTableComponent {
   store = inject(eventsStore);
   router = inject(Router);
+  dialog = inject(MatDialog);
+
   selectedDate: WritableSignal<string> = signal(new Date().toISOString());
   selectedYear: Signal<number> = computed(() => new Date(this.selectedDate()).getFullYear());
   monthsArray = Array.from({ length: 12 }, (_, i) => i);
@@ -67,4 +71,13 @@ export class YearTableComponent {
     this.router.navigate(['/month'], { queryParams: { date: formattedDate } });
   }
 
+  openEventDetailedModal(event: any) {
+    const dialogRef =
+      this.dialog.open(EventDetailedComponent,
+        {
+          data: event,
+        }
+        );
+
+  }
 }

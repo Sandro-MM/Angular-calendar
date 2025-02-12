@@ -2,291 +2,243 @@
   "eventItems": [
     {
       "id": "1",
-      "date": "Thu Aug 14 2025 15:14:00 GMT+0400",
+      "date": "2025-08-14T11:14:00.000Z",
       "title": "Shopping",
-      "description": "Online",
-      "color": "#FF33A8",
-      "repeat": "none",
-      "duration": "210"
+      "description": "Buying groceries and clothes",
+      "color": "#FF5733",
+      "duration": "120"
     },
     {
       "id": "2",
-      "date": "Thu Jan 16 2025 20:43:00 GMT+0400",
+      "date": "2025-01-16T12:43:00.000Z",
       "title": "Gaming",
-      "description": "Family gathering",
-      "color": "#5733FF",
-      "repeat": "none",
-      "duration": "210"
+      "description": "Playing the latest RPG",
+      "color": "#33FF57",
+      "duration": "180"
     },
     {
       "id": "3",
-      "date": "Mon Jun 16 2025 06:09:00 GMT+0400",
+      "date": "2025-06-16T02:09:00.000Z",
       "title": "Workout",
-      "description": "Casual meeting",
-      "color": "#3357FF",
-      "repeat": "none",
-      "duration": "60"
+      "description": "Morning gym session",
+      "color": "#5733FF",
+      "duration": "90"
     },
     {
       "id": "4",
-      "date": "Thu Oct 02 2025 01:58:00 GMT+0400",
+      "date": "2025-10-01T21:58:00.000Z",
       "title": "Gaming",
-      "description": "With Friends",
-      "color": "#A8FF33",
-      "repeat": "none",
-      "duration": "240"
-    },
-    {
-      "id": "5",
-      "date": "Wed Apr 09 2025 19:42:00 GMT+0400",
-      "title": "Study Session",
-      "description": "With colleagues",
-      "color": "#3357FF",
-      "repeat": "none",
-      "duration": "300"
-    },
-    {
-      "id": "6",
-      "date": "Thu Oct 30 2025 21:15:00 GMT+0400",
-      "title": "Workout",
-      "description": "With colleagues",
-      "color": "#33FF57",
-      "repeat": "none",
-      "duration": "30"
-    },
-    {
-      "id": "7",
-      "date": "Fri May 23 2025 08:42:00 GMT+0400",
-      "title": "Meeting",
-      "description": "Business event",
-      "color": "#33A8FF",
-      "repeat": "none",
+      "description": "Multiplayer night with friends",
+      "color": "#F39C12",
       "duration": "150"
     },
     {
+      "id": "5",
+      "date": "2025-04-09T15:42:00.000Z",
+      "title": "Study Session",
+      "description": "Reviewing math and science",
+      "color": "#9B59B6",
+      "duration": "210"
+    },
+    {
+      "id": "6",
+      "date": "2025-10-30T17:15:00.000Z",
+      "title": "Workout",
+      "description": "Evening run in the park",
+      "color": "#1ABC9C",
+      "duration": "60"
+    },
+    {
+      "id": "7",
+      "date": "2025-05-23T04:42:00.000Z",
+      "title": "Meeting",
+      "description": "Project update discussion",
+      "color": "#D35400",
+      "duration": "45"
+    },
+    {
       "id": "8",
-      "date": "Fri Nov 14 2025 13:55:00 GMT+0400",
+      "date": "2025-11-14T09:55:00.000Z",
       "title": "Lunch",
-      "description": "Online",
-      "color": "#A8FF33",
-      "repeat": "none",
+      "description": "Business lunch with colleagues",
+      "color": "#2ECC71",
       "duration": "90"
     },
     {
       "id": "9",
-      "date": "Fri Feb 07 2025 00:48:00 GMT+0400",
+      "date": "2025-02-06T20:48:00.000Z",
       "title": "Dinner",
-      "description": "Intensive session",
-      "color": "#FF33A8",
-      "repeat": "none",
+      "description": "Romantic dinner date",
+      "color": "#E74C3C",
       "duration": "120"
     },
     {
       "id": "10",
-      "date": "Mon Feb 24 2025 23:27:00 GMT+0400",
+      "date": "2025-02-24T19:27:00.000Z",
       "title": "Shopping",
-      "description": "With Friends",
-      "color": "#FFA833",
-      "repeat": "none",
-      "duration": "45"
+      "description": "Tech gadget shopping spree",
+      "color": "#3498DB",
+      "duration": "180"
     },
     {
       "id": "11",
-      "date": "Mon Jun 09 2025 06:09:00 GMT+0400",
+      "date": "2025-06-09T02:09:00.000Z",
       "title": "Meeting",
-      "description": "Relaxing time",
-      "color": "#FF33A8",
-      "repeat": "none",
-      "duration": "60"
+      "description": "Client presentation",
+      "color": "#8E44AD",
+      "duration": "75"
     },
     {
       "id": "12",
-      "date": "Fri Jan 17 2025 19:22:00 GMT+0400",
+      "date": "2025-01-17T15:22:00.000Z",
       "title": "Movie Night",
-      "description": "Business event",
-      "color": "#A8FF33",
-      "repeat": "none",
-      "duration": "300"
+      "description": "Watching action thriller",
+      "color": "#F1C40F",
+      "duration": "150"
     },
     {
       "id": "13",
-      "date": "Tue Feb 06 2025 12:00:00 GMT+0400",
+      "date": "2025-02-06T08:00:00.000Z",
       "title": "Meeting",
-      "description": "Meeting With Friends",
-      "color": "Red",
-      "repeat": "none",
-      "duration": "60"
+      "description": "Team stand-up call",
+      "color": "#2C3E50",
+      "duration": "30"
     },
     {
       "id": "14",
-      "date": "Tue Feb 06 2025 00:34:56 GMT+0400",
+      "date": "2025-02-05T20:34:56.000Z",
       "title": "Cycling",
-      "description": "Cycling in park",
-      "color": "Green",
-      "repeat": "none",
-      "duration": "120"
+      "description": "Evening ride through the city",
+      "color": "#E67E22",
+      "duration": "90"
     },
     {
       "id": "15",
-      "date": "Tue Feb 09 2025 21:34:56 GMT+0400",
+      "date": "2025-02-09T17:34:56.000Z",
       "title": "Cycling",
-      "description": "Cycling in park",
-      "color": "Blue",
-      "repeat": "none",
-      "duration": "350"
+      "description": "Morning cycling challenge",
+      "color": "#16A085",
+      "duration": "120"
     },
     {
       "id": "16",
-      "date": "Sat Apr 05 2025 04:05:00 GMT+0400",
+      "date": "2025-04-05T00:05:00.000Z",
       "title": "Movie Night",
-      "description": "Business event",
-      "color": "#5733FF",
-      "repeat": "none",
-      "duration": "210"
+      "description": "Sci-fi movie marathon",
+      "color": "#2980B9",
+      "duration": "180"
     },
     {
       "id": "17",
-      "date": "Wed Dec 10 2025 08:36:00 GMT+0400",
+      "date": "2025-12-10T04:36:00.000Z",
       "title": "Lunch",
-      "description": "Online",
-      "color": "#33FF57",
-      "repeat": "none",
-      "duration": "210"
+      "description": "Casual brunch at cafe",
+      "color": "#C0392B",
+      "duration": "75"
     },
     {
       "id": "18",
-      "date": "Fri Jul 04 2025 04:02:00 GMT+0400",
+      "date": "2025-07-04T00:02:00.000Z",
       "title": "Workout",
-      "description": "Solo session",
-      "color": "#33FFA8",
-      "repeat": "none",
+      "description": "HIIT and weight training",
+      "color": "#34495E",
       "duration": "60"
     },
     {
       "id": "19",
-      "date": "Thu Apr 24 2025 12:16:00 GMT+0400",
+      "date": "2025-04-24T08:16:00.000Z",
       "title": "Dinner",
-      "description": "With colleagues",
-      "color": "#33FF57",
-      "repeat": "none",
-      "duration": "180"
+      "description": "Trying out a new restaurant",
+      "color": "#D35400",
+      "duration": "90"
     },
     {
       "id": "20",
-      "date": "Sun Jun 15 2025 06:43:00 GMT+0400",
+      "date": "2025-06-15T02:43:00.000Z",
       "title": "Conference",
-      "description": "Family gathering",
-      "color": "#5733FF",
-      "repeat": "none",
-      "duration": "300"
-    },
-    {
-      "id": "21",
-      "date": "Sat Oct 18 2025 09:13:00 GMT+0400",
-      "title": "Shopping",
-      "description": "Casual meeting",
-      "color": "#33A8FF",
-      "repeat": "none",
-      "duration": "90"
-    },
-    {
-      "id": "22",
-      "date": "Wed Aug 06 2025 03:13:00 GMT+0400",
-      "title": "Workout",
-      "description": "At the park",
-      "color": "#FFA833",
-      "repeat": "none",
-      "duration": "300"
-    },
-    {
-      "id": "23",
-      "date": "Sun Aug 24 2025 10:47:00 GMT+0400",
-      "title": "Study Session",
-      "description": "Intensive session",
-      "color": "#33FFA8",
-      "repeat": "none",
-      "duration": "150"
-    },
-    {
-      "id": "24",
-      "date": "Thu Oct 09 2025 15:17:00 GMT+0400",
-      "title": "Gaming",
-      "description": "Casual meeting",
-      "color": "#3357FF",
-      "repeat": "none",
+      "description": "Tech innovation summit",
+      "color": "#9B59B6",
       "duration": "240"
     },
     {
-      "id": "25",
-      "date": "Sat Oct 25 2025 02:09:00 GMT+0400",
-      "title": "Study Session",
-      "description": "Solo session",
-      "color": "#33FF57",
-      "repeat": "none",
+      "id": "21",
+      "date": "2025-10-18T05:13:00.000Z",
+      "title": "Shopping",
+      "description": "Seasonal discount sales",
+      "color": "#2ECC71",
+      "duration": "120"
+    },
+    {
+      "id": "22",
+      "date": "2025-08-05T23:13:00.000Z",
+      "title": "Workout",
+      "description": "Full-body strength workout",
+      "color": "#8E44AD",
       "duration": "90"
     },
     {
-      "id": "26",
-      "date": "Sat Dec 27 2025 18:35:00 GMT+0400",
+      "id": "23",
+      "date": "2025-08-24T06:47:00.000Z",
       "title": "Study Session",
-      "description": "Solo session",
-      "color": "#33FF57",
-      "repeat": "none",
-      "duration": "300"
-    },
-    {
-      "id": "27",
-      "date": "Fri Mar 28 2025 08:23:00 GMT+0400",
-      "title": "Shopping",
-      "description": "Intensive session",
-      "color": "#FFA833",
-      "repeat": "none",
-      "duration": "60"
-    },
-    {
-      "id": "28",
-      "date": "Mon Jul 21 2025 00:38:00 GMT+0400",
-      "title": "Dinner",
-      "description": "Relaxing time",
-      "color": "#33FF57",
-      "repeat": "none",
-      "duration": "30"
-    },
-    {
-      "id": "29",
-      "date": "Sun Oct 05 2025 15:07:00 GMT+0400",
-      "title": "Shopping",
-      "description": "Casual meeting",
-      "color": "#A8FF33",
-      "repeat": "none",
+      "description": "Preparing for an exam",
+      "color": "#E74C3C",
       "duration": "210"
     },
     {
-      "id": "30",
-      "date": "Wed Dec 24 2025 07:16:00 GMT+0400",
-      "title": "Lunch",
-      "description": "Casual meeting",
-      "color": "#33FF57",
-      "repeat": "none",
+      "id": "24",
+      "date": "2025-10-09T11:17:00.000Z",
+      "title": "Gaming",
+      "description": "Esports tournament practice",
+      "color": "#3498DB",
+      "duration": "180"
+    },
+    {
+      "id": "25",
+      "date": "2025-10-24T22:09:00.000Z",
+      "title": "Study Session",
+      "description": "Research and note-taking",
+      "color": "#F39C12",
+      "duration": "210"
+    },
+    {
+      "id": "26",
+      "date": "2025-12-27T14:35:00.000Z",
+      "title": "Study Session",
+      "description": "Deep focus study session",
+      "color": "#1ABC9C",
+      "duration": "180"
+    },
+    {
+      "id": "27",
+      "date": "2025-03-28T04:23:00.000Z",
+      "title": "Shopping",
+      "description": "Holiday gift shopping",
+      "color": "#D35400",
+      "duration": "150"
+    },
+    {
+      "id": "28",
+      "date": "2025-07-20T20:38:00.000Z",
+      "title": "Dinner",
+      "description": "Celebration dinner with friends",
+      "color": "#E67E22",
+      "duration": "120"
+    },
+    {
+      "id": "29",
+      "date": "2025-10-05T11:07:00.000Z",
+      "title": "Shopping",
+      "description": "Shopping for home essentials",
+      "color": "#F1C40F",
       "duration": "90"
     },
     {
-      "id": "72abb53f-fe49-4a4b-831a-8c111c45260c",
-      "date": "2025-02-11T23:30:00.000Z",
-      "title": "rrr",
-      "description": "qeqwe",
-      "color": "#ff0000",
-      "duration": 90,
-      "repeat": "null"
-    },
-    {
-      "id": "ced66a55-5a74-42af-ba67-1795ae8a89c4",
-      "date": "2025-02-19T20:00:00.000Z",
-      "title": "sdfsdf",
-      "description": "sdfsdf",
-      "color": "#8681d5",
-      "duration": 90,
-      "repeat": "null"
+      "id": "30",
+      "date": "2025-12-24T03:16:00.000Z",
+      "title": "Lunch",
+      "description": "Christmas Eve family lunch",
+      "color": "#16A085",
+      "duration": "180"
     }
   ]
 }

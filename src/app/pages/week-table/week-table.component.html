@@ -17,6 +17,7 @@
                  >
             @for (event of dayEvents?.events; track event.id; let i = $count;) {
               <div
+                (click)="openEventDetailedModal(event)"
                 cdkDrag
                 class="event-box"
                 [style.height]="((+event.duration * 0.8) + 'px').toString()"

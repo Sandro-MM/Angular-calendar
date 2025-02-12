@@ -1,0 +1,13 @@
+@if (data) {
+  <div style="padding: 16px">
+    <h5>title</h5>
+    <div>{{ data.title }}</div>
+    <h5>description</h5>
+    <div>{{ data.description }}</div>
+    <h5>start date</h5>
+    <div>{{ data.date | date:'dd/MM/yyyy-HH:mm' }}</div>
+    <div [ngStyle]="{ width: '12px', height: '12px', background: data.color }"></div>
+    <button (click)="deleteEvent(data.id)">delete</button>
+  </div>
+}
+

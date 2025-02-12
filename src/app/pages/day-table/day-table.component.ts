@@ -17,6 +17,8 @@ import {
   CdkDropListGroup,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
+import {EventDetailedComponent} from '../../components/event-detailed/event-detailed.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-day-table',
@@ -33,6 +35,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DayTableComponent{
+  dialog = inject(MatDialog);
   store = inject(eventsStore);
   selectedDate: WritableSignal<string> = signal<string>('');
   hoursArray = hoursArray;
@@ -62,20 +65,36 @@ export class DayTableComponent{
         event.previousIndex,
         event.currentIndex
       );
+
       const movedEvent = event.container.data[event.currentIndex];
-      const newHour = Number(event.container.id.split('-')[1]);
-      if (newHour){
+      const hourId = Number(event.container.id.split('-')[1]);
+      const hourString = hoursArray[hourId]?.value;
+
+      if (hourString) {
         const eventDate = new Date(movedEvent.date);
         const localYear = eventDate.getFullYear();
         const localMonth = eventDate.getMonth();
         const localDay = eventDate.getDate();
-        const updatedDate = new Date(localYear, localMonth, localDay, newHour, 0, 0, 0);
+        const [hour, minute] = hourString.split(':').map(num => parseInt(num));
+        const updatedDate = new Date(localYear, localMonth, localDay, hour, minute, 0, 0);
+        movedEvent.date = updatedDate.toISOString();
         this.store.updateEventTime(movedEvent.id, updatedDate.toISOString());
       }
     }
   }
+
   getEventWidth(eventCount: number): string {
     return eventCount > 0 ? `calc(100% / ${eventCount})` : '100%';
+  }
+
+  openEventDetailedModal(event: any) {
+    const dialogRef =
+      this.dialog.open(EventDetailedComponent,
+        {
+          data: event,
+        }
+      );
+
   }
 }
 

@@ -26,7 +26,7 @@
                   </div>
                   <div class="events">
                     @for (event of dayObj.events; track event.id+'event') {
-                      <div class="event-box" [style.backgroundColor]="event.color">
+                      <div (click)="openEventDetailedModal(event)" class="event-box" [style.backgroundColor]="event.color">
                         {{ event.title }}
                       </div>
                     }

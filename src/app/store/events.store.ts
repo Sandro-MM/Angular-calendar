@@ -35,9 +35,7 @@ export const eventsStore = signalStore(
       deleteEvent(id: string){
         eventService.deleteEvent(id).subscribe({
           next: (deletedEventId) => {
-            patchState(store, {
-              eventItems: [...store.eventItems().filter(event => event.id !== deletedEventId)],
-            });
+            this.getEvents()
           },
           error: (err) => {
             console.error('Error adding event:', err);

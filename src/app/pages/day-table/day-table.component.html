@@ -12,6 +12,7 @@
       > <span class="time" >{{ hour.value }}</span>
         @for (event of hour.events; track event.id; let i = $count;) {
           <div
+            (click)="openEventDetailedModal(event)"
             class="event-box"
             cdkDragBoundary='.day-table'
             cdkDragLockAxis="y"

@@ -30,6 +30,7 @@
 
               @for (event of day.events; let i = $index; track i + 'event') {
                 <div
+                  (click)="openEventDetailedModal(event)"
                   cdkDrag
                   class="event-box"
                   [style.background-color]="event.color">

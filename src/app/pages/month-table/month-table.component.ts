@@ -4,6 +4,8 @@ import {DatePipe, NgClass} from '@angular/common';
 import {eventsStore} from '../../store/events.store';
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Router} from '@angular/router';
+import {EventDetailedComponent} from '../../components/event-detailed/event-detailed.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-month-table',
@@ -21,6 +23,7 @@ import {Router} from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MonthTableComponent {
+  dialog = inject(MatDialog);
   store = inject(eventsStore);
   router = inject(Router)
   selectedDate: WritableSignal<string> = signal('');
@@ -116,4 +119,13 @@ export class MonthTableComponent {
     this.router.navigate(['/day'], { queryParams: { date: formattedDate } });
   }
 
+  openEventDetailedModal(event: any) {
+    const dialogRef =
+      this.dialog.open(EventDetailedComponent,
+        {
+          data: event,
+        }
+      );
+
+  }
 }
