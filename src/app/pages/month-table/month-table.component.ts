@@ -43,7 +43,7 @@ export class MonthTableComponent {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
-    const firstWeekday = firstDay.getDay(); // Sunday = 0, Monday = 1, etc.
+    const firstWeekday = firstDay.getDay();
     let calendar: { date: Date | null; isCurrentMonth: boolean, events: any[] }[][] = [];
     let week: { date: Date | null; isCurrentMonth: boolean, events: any[] }[] = [];
     const prevMonth = month === 0 ? 11 : month - 1;
